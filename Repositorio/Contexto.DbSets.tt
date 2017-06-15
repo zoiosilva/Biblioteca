@@ -17,28 +17,28 @@ namespace Biblioteca.Repositorio
     public partial class <#= CLASS_NAME #>
     {
 <#
-    var solution = GetSolution();
-    var projects = GetProjects(solution);
+	var solution = GetSolution();
+	var projects = GetProjects(solution);
 
-    foreach (var project in projects)
-    {
+	foreach (var project in projects)
+	{
 		var files = GetCSFileItems(project);
 
-        foreach (var file in files)
-        {
+		foreach (var file in files)
+		{
 			var codeNamespaces = GetNamespaces(file, NAMESPACE);
 
-            foreach (var codeNamespace in codeNamespaces)
-            {
+			foreach (var codeNamespace in codeNamespaces)
+			{
 				var classes = GetClasses(codeNamespace);
-                foreach (var classe in classes)
-                {
+				foreach (var classe in classes)
+				{
 					#>        public DbSet<<#= codeNamespace.Name+"."+classe.Name #>> <#= classe.Name #> { get; set; }
 <#
-                }
-            }
-        }
-    }
+				}
+			}
+		}
+	}
 #>
     }
 }
@@ -53,23 +53,23 @@ private IEnumerable<EnvDTE.CodeNamespace> GetNamespaces(EnvDTE.ProjectItem file,
 	var fileCodeModel = file.FileCodeModel;
 
 	if (fileCodeModel == null)
-    {
+	{
 		if (file.ProjectItems.Count > 0)
 		{
 			return file.ProjectItems.Cast<EnvDTE.ProjectItem>()
 				.Where(f => f.FileCodeModel != null)
 				.SelectMany(f => GetNamespaces(f, namespaceFilter));
-        }
+		}
 
 		return new List<EnvDTE.CodeNamespace>();
-    }
+	}
 
 	return fileCodeModel.CodeElements.Cast<EnvDTE.CodeElement>().OfType<EnvDTE.CodeNamespace>().Where(codeNamespace => codeNamespace.Name.Contains(namespaceFilter));
 }
 
 private IEnumerable<EnvDTE.ProjectItem> GetCSFileItems(EnvDTE.Project project)
 {
-	return project.ProjectItems.Cast<EnvDTE.ProjectItem>();//.Where(projectItem => projectItem.Name.EndsWith(".cs"));
+	return project.ProjectItems.Cast<EnvDTE.ProjectItem>();
 }
 
 private IEnumerable<EnvDTE.Project> GetProjects(EnvDTE.Solution solution)
@@ -79,16 +79,16 @@ private IEnumerable<EnvDTE.Project> GetProjects(EnvDTE.Solution solution)
 
 private EnvDTE.Solution GetSolution()
 {
-    IServiceProvider hostServiceProvider = (IServiceProvider)Host;
-        
-    if (hostServiceProvider == null)
-            throw new Exception("Host property returned unexpected value (null)");
-        
-    EnvDTE.DTE dte = (EnvDTE.DTE)hostServiceProvider.GetService(typeof(EnvDTE.DTE));
-        
-    if (dte == null)
-            throw new Exception("Unable to retrieve EnvDTE.DTE");
-    
-    return dte.Solution;
+	IServiceProvider hostServiceProvider = (IServiceProvider)Host;
+
+	if (hostServiceProvider == null)
+		throw new Exception("Host property returned unexpected value (null)");
+
+	EnvDTE.DTE dte = (EnvDTE.DTE)hostServiceProvider.GetService(typeof(EnvDTE.DTE));
+
+	if (dte == null)
+		throw new Exception("Unable to retrieve EnvDTE.DTE");
+
+	return dte.Solution;
 }
 #>
