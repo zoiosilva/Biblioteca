@@ -1,0 +1,94 @@
+﻿<#@ template debug="true" hostSpecific="true" #>
+<#@ output extension=".cs" #>
+<#@ Assembly Name="System.Core" #>
+<#@ assembly name="EnvDte" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #> 
+<#@ import namespace="System.Reflection" #>
+<#
+	const string CLASS_NAME = "Contexto";
+	const string NAMESPACE = "Biblioteca.Entidades";
+#>
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+
+namespace Biblioteca.Repositorio
+{
+    public partial class <#= CLASS_NAME #> : DbContext
+    {
+<#
+    var solution = GetSolution();
+    var projects = GetProjects(solution);
+
+    foreach (var project in projects)
+    {
+		var files = GetCSFileItems(project);
+
+        foreach (var file in files)
+        {
+			var codeNamespaces = GetNamespaces(file, NAMESPACE);
+
+            foreach (var codeNamespace in codeNamespaces)
+            {
+				#>        //ns: <#= codeNamespace.Name #>:
+<#
+				var classes = GetClasses(codeNamespace);
+                foreach (var classe in classes)
+                {
+					#>        public DbSet<<#= codeNamespace.Name+"."+classe.Name #>> <#= classe.Name #> { get; set; }
+<#
+                }
+					#>
+
+<#
+            }
+        }
+    }
+#>
+    }
+}
+<#+
+private IEnumerable<EnvDTE.CodeClass> GetClasses(EnvDTE.CodeNamespace codeNamespace)
+{
+	return codeNamespace.Children.Cast<EnvDTE.CodeElement>().OfType<EnvDTE.CodeClass>().Where(c => !c.IsAbstract);
+}
+
+private IEnumerable<EnvDTE.CodeNamespace> GetNamespaces(EnvDTE.ProjectItem file, string namespaceFilter)
+{
+	var fileCodeModel = file.FileCodeModel;
+
+	if (fileCodeModel == null)
+		return new List<EnvDTE.CodeNamespace>();
+
+	return fileCodeModel.CodeElements.Cast<EnvDTE.CodeElement>().OfType<EnvDTE.CodeNamespace>().Where(codeNamespace => codeNamespace.Name.StartsWith(namespaceFilter));
+}
+
+private IEnumerable<EnvDTE.ProjectItem> GetCSFileItems(EnvDTE.Project project)
+{
+	return project.ProjectItems.Cast<EnvDTE.ProjectItem>().Where(projectItem => projectItem.Name.EndsWith(".cs"));
+}
+
+private IEnumerable<EnvDTE.Project> GetProjects(EnvDTE.Solution solution)
+{
+	return solution.Projects.Cast<EnvDTE.Project>();
+}
+
+private EnvDTE.Solution GetSolution()
+{
+    IServiceProvider hostServiceProvider = (IServiceProvider)Host;
+        
+    if (hostServiceProvider == null)
+            throw new Exception("Host property returned unexpected value (null)");
+        
+    EnvDTE.DTE dte = (EnvDTE.DTE)hostServiceProvider.GetService(typeof(EnvDTE.DTE));
+        
+    if (dte == null)
+            throw new Exception("Unable to retrieve EnvDTE.DTE");
+    
+    return dte.Solution;
+}
+#>

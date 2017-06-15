@@ -1,0 +1,82 @@
+﻿<#@ template debug="true" hostSpecific="true" #>
+<#@ output extension=".cs" #>
+<#@ Assembly Name="System.Core" #>
+<#@ assembly name="EnvDte" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #> 
+<#@ import namespace="System.Reflection" #>
+<#
+	// insert your template code here the tempalte code will be syntaxhighlighted 
+	// and you will have intellisense for all namespaces in the full edition
+	const string CLASS_NAME = "Contexto";
+	const string NAMESPACE = "Biblioteca.Entidades";
+#>
+//using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+<#
+    var dte = GetEnvDTE();
+    var projects = dte.Solution.Projects.Cast<EnvDTE.Project>();
+
+    foreach (var project in projects)
+    {
+		var fileItems = project.ProjectItems.Cast<EnvDTE.ProjectItem>().Where(projectItem => projectItem.Name.EndsWith(".cs"));
+
+        foreach (var fileItem in fileItems)
+        {
+			var fcm = fileItem.FileCodeModel;
+			if (fcm != null)
+			{
+				var codeNamespaces = fcm.CodeElements.Cast<EnvDTE.CodeElement>().OfType<EnvDTE.CodeNamespace>().Where(codeNamespace => codeNamespace.Name.StartsWith(NAMESPACE));
+                foreach (var codeNamespace in codeNamespaces)
+                {
+					#>//namespace: <#= codeNamespace.Name #>;
+<#
+					var classes = codeNamespace.Children.Cast<EnvDTE.CodeElement>().OfType<EnvDTE.CodeClass>().Where(c => !c.IsAbstract);
+                    foreach (var classe in classes)
+                    {
+		 #>//class: <#= classe.Name #>;
+<#
+                    }
+                }
+            }
+        }
+    }
+#>
+namespace Biblioteca.Repositorio
+{
+    public partial class <#= CLASS_NAME #>// : DbContext
+    {
+    }
+}
+<#+
+    private EnvDTE.DTE GetEnvDTE()
+    {
+        IServiceProvider hostServiceProvider = (IServiceProvider)Host;
+        
+        if (hostServiceProvider == null)
+               throw new Exception("Host property returned unexpected value (null)");
+        
+        EnvDTE.DTE dte = (EnvDTE.DTE)hostServiceProvider.GetService(typeof(EnvDTE.DTE));
+        
+        if (dte == null)
+               throw new Exception("Unable to retrieve EnvDTE.DTE");
+    
+        return dte;
+    }
+
+  public List<EnvDTE.ProjectItem> GetProjectItemsRecursively(EnvDTE.ProjectItems items)
+  {
+      var ret = new List<EnvDTE.ProjectItem>();
+      if (items == null) return ret;
+      foreach(EnvDTE.ProjectItem item in items)
+      {
+        ret.Add(item);
+        ret.AddRange(GetProjectItemsRecursively(item.ProjectItems));
+      }
+      return ret;
+  }
+#>

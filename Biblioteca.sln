@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entidades", "Entidades\Entidades.csproj", "{219D8FBF-4088-449C-BAFA-2167CBEF727B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biblioteca.Entidades", "Entidades\Biblioteca.Entidades.csproj", "{219D8FBF-4088-449C-BAFA-2167CBEF727B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biblioteca.Repositorio", "Repositorio\Biblioteca.Repositorio.csproj", "{4E914277-41A3-42C6-8958-0CCDD44EEEE2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{219D8FBF-4088-449C-BAFA-2167CBEF727B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{219D8FBF-4088-449C-BAFA-2167CBEF727B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{219D8FBF-4088-449C-BAFA-2167CBEF727B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E914277-41A3-42C6-8958-0CCDD44EEEE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E914277-41A3-42C6-8958-0CCDD44EEEE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E914277-41A3-42C6-8958-0CCDD44EEEE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E914277-41A3-42C6-8958-0CCDD44EEEE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
