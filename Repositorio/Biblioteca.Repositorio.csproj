@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputType>exe</OutputType>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
     <ApplicationIcon />
-    <OutputTypeEx>exe</OutputTypeEx>
+    <OutputTypeEx>library</OutputTypeEx>
     <StartupObject />
   </PropertyGroup>
 
@@ -24,16 +24,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Contexto.cs">
-      <DependentUpon>Contexto.tt</DependentUpon>
+    <Compile Update="Contexto.DbSets.cs">
+      <DependentUpon>Contexto.DbSets.tt</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Contexto.tt">
-      <LastGenOutput>Contexto.cs</LastGenOutput>
+    <None Update="Contexto.DbSets.tt">
+      <LastGenOutput>Contexto.DbSets.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>
   </ItemGroup>

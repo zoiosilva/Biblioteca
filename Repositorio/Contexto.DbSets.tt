@@ -1,24 +1,20 @@
 ﻿<#@ template debug="true" hostSpecific="true" #>
 <#@ output extension=".cs" #>
-<#@ Assembly Name="System.Core" #>
+<#@ assembly Name="System.Core" #>
 <#@ assembly name="EnvDte" #>
 <#@ import namespace="System" #>
-<#@ import namespace="System.IO" #>
-<#@ import namespace="System.Diagnostics" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Collections" #>
-<#@ import namespace="System.Collections.Generic" #> 
-<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Collections.Generic" #>
 <#
 	const string CLASS_NAME = "Contexto";
 	const string NAMESPACE = "Biblioteca.Entidades";
 #>
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace Biblioteca.Repositorio
 {
-    public partial class <#= CLASS_NAME #> : DbContext
+    public partial class <#= CLASS_NAME #>
     {
 <#
     var solution = GetSolution();
@@ -34,17 +30,12 @@ namespace Biblioteca.Repositorio
 
             foreach (var codeNamespace in codeNamespaces)
             {
-				#>        //ns: <#= codeNamespace.Name #>:
-<#
 				var classes = GetClasses(codeNamespace);
                 foreach (var classe in classes)
                 {
 					#>        public DbSet<<#= codeNamespace.Name+"."+classe.Name #>> <#= classe.Name #> { get; set; }
 <#
                 }
-					#>
-
-<#
             }
         }
     }
@@ -62,14 +53,23 @@ private IEnumerable<EnvDTE.CodeNamespace> GetNamespaces(EnvDTE.ProjectItem file,
 	var fileCodeModel = file.FileCodeModel;
 
 	if (fileCodeModel == null)
-		return new List<EnvDTE.CodeNamespace>();
+    {
+		if (file.ProjectItems.Count > 0)
+		{
+			return file.ProjectItems.Cast<EnvDTE.ProjectItem>()
+				.Where(f => f.FileCodeModel != null)
+				.SelectMany(f => GetNamespaces(f, namespaceFilter));
+        }
 
-	return fileCodeModel.CodeElements.Cast<EnvDTE.CodeElement>().OfType<EnvDTE.CodeNamespace>().Where(codeNamespace => codeNamespace.Name.StartsWith(namespaceFilter));
+		return new List<EnvDTE.CodeNamespace>();
+    }
+
+	return fileCodeModel.CodeElements.Cast<EnvDTE.CodeElement>().OfType<EnvDTE.CodeNamespace>().Where(codeNamespace => codeNamespace.Name.Contains(namespaceFilter));
 }
 
 private IEnumerable<EnvDTE.ProjectItem> GetCSFileItems(EnvDTE.Project project)
 {
-	return project.ProjectItems.Cast<EnvDTE.ProjectItem>().Where(projectItem => projectItem.Name.EndsWith(".cs"));
+	return project.ProjectItems.Cast<EnvDTE.ProjectItem>();//.Where(projectItem => projectItem.Name.EndsWith(".cs"));
 }
 
 private IEnumerable<EnvDTE.Project> GetProjects(EnvDTE.Solution solution)
