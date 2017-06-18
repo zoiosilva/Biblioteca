@@ -1,6 +1,6 @@
 ﻿namespace Biblioteca.Entidades.Catalogacao
 {
-    public abstract class Classificacao
+    public abstract class Classificacao : EntidadeBase
     {
         public string Codigo { get; set; }
         public string Descricao { get; set; }

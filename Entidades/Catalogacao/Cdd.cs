@@ -2,5 +2,5 @@
 {
     public class Cdd : Classificacao<Cdd>
     {
-    }
+    }    
 }

@@ -2,7 +2,7 @@
 
 namespace Biblioteca.Entidades
 {
-    public class Documento
+    public class Documento : EntidadeBase
     {
         public string Titulo { get; set; }
         public string Subtitulo { get; set; }

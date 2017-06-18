@@ -2,7 +2,7 @@
 
 namespace Biblioteca.Entidades
 {
-    public class Autor
+    public class Autor : EntidadeBase
     {
         public string Sobrenome { get; set; }
         public string Nome { get; set; }

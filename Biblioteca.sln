@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biblioteca.Entidades", "Ent
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biblioteca.Repositorio", "Repositorio\Biblioteca.Repositorio.csproj", "{4E914277-41A3-42C6-8958-0CCDD44EEEE2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biblioteca.Entidades.EFMapping", "Biblioteca.Entidades.EFMapping\Biblioteca.Entidades.EFMapping.csproj", "{3B52522E-C7E3-4A8B-ABBE-6A6B8ECCF0E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4E914277-41A3-42C6-8958-0CCDD44EEEE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E914277-41A3-42C6-8958-0CCDD44EEEE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E914277-41A3-42C6-8958-0CCDD44EEEE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B52522E-C7E3-4A8B-ABBE-6A6B8ECCF0E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B52522E-C7E3-4A8B-ABBE-6A6B8ECCF0E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B52522E-C7E3-4A8B-ABBE-6A6B8ECCF0E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B52522E-C7E3-4A8B-ABBE-6A6B8ECCF0E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
