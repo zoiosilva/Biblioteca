@@ -1,6 +1,6 @@
 ﻿namespace Biblioteca.Entidades.Catalogacao
 {
-    public class Cutter : Classificacao
+    public class Cutter : Tabela
     {
 
     }

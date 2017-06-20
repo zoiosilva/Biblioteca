@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 
 namespace Biblioteca.Entidades.EFMapping
 {
@@ -10,10 +9,6 @@ namespace Biblioteca.Entidades.EFMapping
             entidade.HasKey(t => t.Id);
             entidade.Property(t => t.DataInclusao); //TODO: Default value generator.
             entidade.Property(t => t.DataModificacao);
-
-            Configurar();
         }
-
-        public abstract void Configurar();
     }
 }
