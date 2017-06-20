@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.13
+VisualStudioVersion = 15.0.26606.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biblioteca.Entidades", "Entidades\Biblioteca.Entidades.csproj", "{219D8FBF-4088-449C-BAFA-2167CBEF727B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biblioteca.Entidades", "Entidades\Biblioteca.Entidades.csproj", "{219D8FBF-4088-449C-BAFA-2167CBEF727B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biblioteca.Repositorio", "Repositorio\Biblioteca.Repositorio.csproj", "{4E914277-41A3-42C6-8958-0CCDD44EEEE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biblioteca.Repositorio", "Repositorio\Biblioteca.Repositorio.csproj", "{4E914277-41A3-42C6-8958-0CCDD44EEEE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biblioteca.Entidades.EFMapping", "Entidades.EFMapping\Biblioteca.Entidades.EFMapping.csproj", "{3B52522E-C7E3-4A8B-ABBE-6A6B8ECCF0E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biblioteca.Entidades.EFMapping", "Entidades.EFMapping\Biblioteca.Entidades.EFMapping.csproj", "{3B52522E-C7E3-4A8B-ABBE-6A6B8ECCF0E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
