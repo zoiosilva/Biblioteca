@@ -5,7 +5,7 @@ namespace Biblioteca.Entidades.EFMapping.Classificacao
 {
     public abstract class ClassificacaoMap<T> : BaseMap<T> where T : Classificacao<T>
     {
-        public ClassificacaoMap(EntityTypeBuilder<T> entidade) : base(entidade)
+        protected ClassificacaoMap(EntityTypeBuilder<T> entidade) : base(entidade)
         {
             entidade.Property(t => t.Codigo);
             entidade.Property(t => t.Descricao);

@@ -51,7 +51,8 @@ namespace Biblioteca.Repositorio
 
         public void Dispose()
         {
-            contexto.Dispose();
+            if (contexto != null)
+                contexto.Dispose();
         }
     }
 }
